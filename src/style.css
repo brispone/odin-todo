@@ -27,6 +27,22 @@ body {
     margin-bottom: 20px;
   } 
   
+  .project-title-container {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .project h3 {
+    margin: 0; 
+  }
+  
+  .project p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #888;
+  }
+
   .project-title {
     display: flex;
     justify-content: space-between;
