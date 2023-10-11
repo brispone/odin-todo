@@ -29,5 +29,23 @@ projectList.forEach((project) => {
     projectTitleContainer.append(projectTitle);
     projectTitleContainer.append(projectDesc);
     projectDiv.append(projectTitleContainer);
+    
+    // Loop through the project's tasks array and render all of the tasks
+    project.taskList.forEach((task) => {
+        const taskDiv = document.createElement('div');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        const taskName = document.createElement('span');
+        taskName.innerText = task.title;
+        
+        if (task.highPriority) {
+            taskName.innerText = task.title + " 🚩";
+        } else taskName.innerText = task.title;
+
+        taskDiv.append(checkbox);
+        taskDiv.append(taskName);
+        projectDiv.append(taskDiv);
+    });
+
     projectsContainer.append(projectDiv);
 });
