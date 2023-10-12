@@ -1,6 +1,7 @@
 import './style.css';
 import { createProject } from './projectFactory';
 import { createTask } from './taskFactory';
+import { renderProjects } from './renderFunctions';
 
 const projectList = [];
 
@@ -11,6 +12,10 @@ const testTask = createTask("Task 2", "test task yo", new Date(), true);
 testProject.addTask(testTask);
 
 console.log(testProject);
+
+renderProjects(projectList);
+
+/*
 
 const projectsContainer = document.getElementById("projects");
 
@@ -33,6 +38,7 @@ projectList.forEach((project) => {
     // Loop through the project's tasks array and render all of the tasks
     project.taskList.forEach((task) => {
         const taskDiv = document.createElement('div');
+        taskDiv.classList.add('task');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         const taskName = document.createElement('span');
@@ -42,10 +48,24 @@ projectList.forEach((project) => {
             taskName.innerText = task.title + " 🚩";
         } else taskName.innerText = task.title;
 
+        if (task.completed) {
+            taskName.classList.add('completed');
+        }
+
         taskDiv.append(checkbox);
         taskDiv.append(taskName);
         projectDiv.append(taskDiv);
+
+        // Add event listener for when the checkbox is checked or unchecked
+        checkbox.addEventListener('change', (event) => {
+            if(event.target.checked) {
+                task.completed = true;
+            } else task.completed = false;
+            // ADD LOGIC HERE TO CALL RENDERING FUNCTION
+        });
     });
 
     projectsContainer.append(projectDiv);
 });
+
+*/
