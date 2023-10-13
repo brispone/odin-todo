@@ -113,6 +113,7 @@ function renderProjects (projectList) {
                 if(task.detailsHidden) {
                     task.detailsHidden = false;
                 } else task.detailsHidden = true;
+                
                 renderProjects(projectList);
             });
 

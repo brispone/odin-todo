@@ -75,7 +75,7 @@ body {
   .task {
     padding: 5px;
     display: flex;
-    justify-content: space-between; /* Task spans the width, buttons on far right */
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -96,24 +96,23 @@ body {
     display: block;
 }
 
-/* Style for the due date container */
 .due-date-container {
   display: flex;
   align-items: center;
-  color: slategray;; /* Adjust the color as needed */
-  font-size: 0.8em; /* Smaller font size */
-  margin-top: 5px; /* Adjust the margin as needed */
+  color: slategray; 
+  font-size: 0.8em; 
+  margin-top: 5px; 
   margin-left: 20px;
 }
 
-/* Style for the due date icon */
+
 .due-date-container img {
-  width: 14px; /* Adjust the size of the calendar icon as needed */
-  margin-right: 5px; /* Spacing between the icon and the due date text */
+  width: 14px; 
+  margin-right: 5px; 
 }
 
 .due-date-container span {
-  line-height: 10px; /* Adjust to match the height of the calendar icon */
+  line-height: 10px; 
   margin-top: 5px;
 }
 
