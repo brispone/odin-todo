@@ -2,6 +2,7 @@ import expandIcon from './assets/expand.svg';
 import shrinkIcon from './assets/shrink.svg';
 import trashIcon from './assets/trash.svg';
 import calendarIcon from './assets/calendar.svg';
+import editIcon from './assets/edit.svg';
 
 function renderProjects (projectList) {
 
@@ -71,14 +72,18 @@ function renderProjects (projectList) {
             if(task.detailsHidden) {
                 detailsButton.src = expandIcon;
             } else detailsButton.src = shrinkIcon;
+
+            const editButton = document.createElement('img');
+            editButton.classList.add('task-button');
+            editButton.src = editIcon;
             
             const deleteButton = document.createElement('img');
             deleteButton.classList.add('task-button');
             deleteButton.src = trashIcon;
 
-            taskButtons.append(detailsButton, deleteButton);
+            taskButtons.append(detailsButton, editButton, deleteButton);
 
-            const descriptionText = document.createElement('div');
+            const descriptionText = document.createElement('p');
             const taskDetails = document.createElement('div');
             
             descriptionText.innerText = task.desc;

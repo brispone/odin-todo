@@ -8,7 +8,7 @@ const projectList = [];
 const testProject = createProject("Test Project", "This is a simple test to see if the project constructor works.");
 projectList.push(testProject);
 
-const testTask = createTask("Task 2", "test task yo", new Date(), true);
+const testTask = createTask("Take out the trash", "The trash is piling up too high. It needs to be taken out very soon!", new Date(), true);
 testProject.addTask(testTask);
 
 console.log(testProject);
