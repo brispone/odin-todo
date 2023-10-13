@@ -95,3 +95,19 @@ body {
 .expand-task-button.active + .task-details {
     display: block;
 }
+
+/* Style for the due date container */
+.due-date-container {
+  display: flex;
+  align-items: center;
+  color: #888; /* Adjust the color as needed */
+  font-size: 0.8em; /* Smaller font size */
+  margin-top: 5px; /* Adjust the margin as needed */
+  margin-left: 20px;
+}
+
+/* Style for the due date icon */
+.due-date-container img {
+  width: 14px; /* Adjust the size of the calendar icon as needed */
+  margin-right: 5px; /* Spacing between the icon and the due date text */
+}

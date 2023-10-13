@@ -1,5 +1,6 @@
 import expandIcon from './assets/expand.svg';
 import trashIcon from './assets/trash.svg';
+import calendarIcon from './assets/calendar.svg';
 
 function renderProjects (projectList) {
 
@@ -46,6 +47,17 @@ function renderProjects (projectList) {
                 taskName.classList.add('completed');
             }
 
+            const dueDateContainer = document.createElement('div');
+            dueDateContainer.classList.add('due-date-container');
+
+            const dueDateIcon = document.createElement('img');
+            dueDateIcon.src = calendarIcon;
+
+            const dueDateText = document.createElement('span');
+            dueDateText.innerText = task.dueDate;
+
+            dueDateContainer.append(dueDateIcon, dueDateText);
+
             const taskButtons = document.createElement('div');
             taskButtons.classList.add('task-buttons');
 
@@ -57,13 +69,10 @@ function renderProjects (projectList) {
             deleteButton.classList.add('task-button');
             deleteButton.src = trashIcon;
 
-            taskButtons.append(expandButton);
-            taskButtons.append(deleteButton);
+            taskButtons.append(expandButton, deleteButton);
     
-            leftsideContainer.append(checkbox);
-            leftsideContainer.append(taskName);
-            taskDiv.append(leftsideContainer);
-            taskDiv.append(taskButtons);
+            leftsideContainer.append(checkbox, taskName, dueDateContainer);
+            taskDiv.append(leftsideContainer, taskButtons);
             projectDiv.append(taskDiv);
     
             // Add event listener for when the checkbox is checked or unchecked
