@@ -1,4 +1,5 @@
 import expandIcon from './assets/expand.svg';
+import shrinkIcon from './assets/shrink.svg';
 import trashIcon from './assets/trash.svg';
 import calendarIcon from './assets/calendar.svg';
 
@@ -24,6 +25,10 @@ function renderProjects (projectList) {
         
         // Loop through the project's tasks array and render all of the tasks
         project.taskList.forEach((task) => {
+
+            const taskOuter = document.createElement('div');
+            taskOuter.classList.add('task-outer');
+
             const taskDiv = document.createElement('div');
             taskDiv.classList.add('task');
 
@@ -40,7 +45,7 @@ function renderProjects (projectList) {
             taskName.innerText = task.title;
             
             if (task.highPriority) {
-                taskDiv.classList.add('high-priority');
+                taskOuter.classList.add('high-priority');
             }
     
             if (task.completed) {
@@ -61,20 +66,34 @@ function renderProjects (projectList) {
             const taskButtons = document.createElement('div');
             taskButtons.classList.add('task-buttons');
 
-            const expandButton = document.createElement('img');
-            expandButton.classList.add('task-button');
-            expandButton.src = expandIcon;
-
+            const detailsButton = document.createElement('img');
+            detailsButton.classList.add('task-button');
+            if(task.detailsHidden) {
+                detailsButton.src = expandIcon;
+            } else detailsButton.src = shrinkIcon;
+            
             const deleteButton = document.createElement('img');
             deleteButton.classList.add('task-button');
             deleteButton.src = trashIcon;
 
-            taskButtons.append(expandButton, deleteButton);
+            taskButtons.append(detailsButton, deleteButton);
+
+            const descriptionText = document.createElement('div');
+            const taskDetails = document.createElement('div');
+            
+            descriptionText.innerText = task.desc;
+            taskDetails.append(descriptionText);
+            taskDetails.classList.add('task-details');
+            if(task.detailsHidden) {
+                taskDetails.style.display = 'none';
+            }
     
             leftsideContainer.append(checkbox, taskName, dueDateContainer);
             taskDiv.append(leftsideContainer, taskButtons);
-            projectDiv.append(taskDiv);
+            taskOuter.append(taskDiv, taskDetails);
+            projectDiv.append(taskOuter);
     
+            // EVENT LISTENERS
             // Add event listener for when the checkbox is checked or unchecked
             checkbox.addEventListener('change', (event) => {
 
@@ -84,6 +103,14 @@ function renderProjects (projectList) {
                 console.log(task);
                 renderProjects(projectList);
             });
+
+            detailsButton.addEventListener('click', () => {
+                if(task.detailsHidden) {
+                    task.detailsHidden = false;
+                } else task.detailsHidden = true;
+                renderProjects(projectList);
+            });
+
         });
     
         projectsContainer.append(projectDiv);

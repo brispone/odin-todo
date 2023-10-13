@@ -62,19 +62,24 @@ body {
     color: grey;
   }
 
-  .task {
+  .task-outer {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 5px;
     margin: 10px 0;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .task {
+    padding: 5px;
     display: flex;
     justify-content: space-between; /* Task spans the width, buttons on far right */
     align-items: center;
 }
 
-.task.high-priority {
+.task-outer.high-priority {
   border: 2px solid firebrick;
 }
 
@@ -87,11 +92,6 @@ body {
   padding-left: 5px;
 }
 
-.task-details {
-    display: none;
-    margin-top: 10px;
-}
-
 .expand-task-button.active + .task-details {
     display: block;
 }
@@ -100,7 +100,7 @@ body {
 .due-date-container {
   display: flex;
   align-items: center;
-  color: #888; /* Adjust the color as needed */
+  color: slategray;; /* Adjust the color as needed */
   font-size: 0.8em; /* Smaller font size */
   margin-top: 5px; /* Adjust the margin as needed */
   margin-left: 20px;
@@ -115,4 +115,12 @@ body {
 .due-date-container span {
   line-height: 10px; /* Adjust to match the height of the calendar icon */
   margin-top: 5px;
+}
+
+.task-details {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background-color: #F8F8F8;
 }
