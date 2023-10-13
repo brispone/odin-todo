@@ -66,7 +66,7 @@ body {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     margin: 10px 0;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -110,4 +110,9 @@ body {
 .due-date-container img {
   width: 14px; /* Adjust the size of the calendar icon as needed */
   margin-right: 5px; /* Spacing between the icon and the due date text */
+}
+
+.due-date-container span {
+  line-height: 10px; /* Adjust to match the height of the calendar icon */
+  margin-top: 5px;
 }
