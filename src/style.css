@@ -82,21 +82,9 @@ body {
     display: flex;
 }
 
-.expand-task-button {
-    background: #1dd1a1;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 5px;
-}
-
-.delete-task-button {
-    background: #ff5656;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
+.task-button {
+  cursor: pointer;
+  padding-left: 5px;
 }
 
 .task-details {

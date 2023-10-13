@@ -50,9 +50,11 @@ function renderProjects (projectList) {
             taskButtons.classList.add('task-buttons');
 
             const expandButton = document.createElement('img');
+            expandButton.classList.add('task-button');
             expandButton.src = expandIcon;
 
             const deleteButton = document.createElement('img');
+            deleteButton.classList.add('task-button');
             deleteButton.src = trashIcon;
 
             taskButtons.append(expandButton);
