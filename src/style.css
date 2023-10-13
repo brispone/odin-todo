@@ -61,3 +61,49 @@ body {
     text-decoration: line-through;
     color: grey;
   }
+
+  .task {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between; /* Task spans the width, buttons on far right */
+    align-items: center;
+}
+
+.task.high-priority {
+  border: 2px solid firebrick;
+}
+
+.task-buttons {
+    display: flex;
+}
+
+.expand-task-button {
+    background: #1dd1a1;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.delete-task-button {
+    background: #ff5656;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.task-details {
+    display: none;
+    margin-top: 10px;
+}
+
+.expand-task-button.active + .task-details {
+    display: block;
+}
