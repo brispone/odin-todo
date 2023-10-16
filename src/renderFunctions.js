@@ -136,8 +136,13 @@ function renderProjects (projectList) {
             });
 
             deleteButton.addEventListener('click', () => {
-                project.taskList.splice(taskIndex, 1);
-                renderProjects(projectList);
+                // confimration of intent to delete
+                const confirmed = window.confirm('Are you sure you want to delete this task?');
+
+                if(confirmed) {
+                    project.taskList.splice(taskIndex, 1);
+                    renderProjects(projectList);
+                }
             });
 
         });
