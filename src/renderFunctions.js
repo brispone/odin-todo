@@ -135,6 +135,11 @@ function renderProjects (projectList) {
                 } else form.elements['priority'].checked = false;
             });
 
+            deleteButton.addEventListener('click', () => {
+                project.taskList.splice(taskIndex, 1);
+                renderProjects(projectList);
+            });
+
         });
 
         // Render New Task button and apply it below the tasks, make sure it points to this specific project for adding tasks
