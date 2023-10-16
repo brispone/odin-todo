@@ -4,6 +4,7 @@ import trashIcon from './assets/trash.svg';
 import calendarIcon from './assets/calendar.svg';
 import editIcon from './assets/edit.svg';
 import newIcon from './assets/plus-circle.svg';
+import xIcon from './assets/x.svg';
 
 function renderProjects (projectList) {
 
@@ -13,9 +14,15 @@ function renderProjects (projectList) {
 
     projectList.forEach((project, projectIndex) => {
         const projectDiv = document.createElement('div');
+        const projectHeader = document.createElement('div');
+        projectHeader.classList.add('project-header');
         const projectTitleContainer = document.createElement('div');
+        projectTitleContainer.classList.add('project-title-container');
         const projectTitle = document.createElement('h3');
         const projectDesc = document.createElement('p');
+        const projectDeleteButton = document.createElement('img');
+        projectDeleteButton.src = trashIcon;
+        projectDeleteButton.classList.add('task-button');
     
         projectTitle.innerText = project.title;
         projectDesc.innerText = project.desc;
@@ -23,7 +30,19 @@ function renderProjects (projectList) {
     
         projectTitleContainer.append(projectTitle);
         projectTitleContainer.append(projectDesc);
-        projectDiv.append(projectTitleContainer);
+        projectHeader.append(projectTitleContainer, projectDeleteButton)
+        projectDiv.append(projectHeader);
+
+        // Event listener for the delete project button
+        projectDeleteButton.addEventListener('click', () => {
+            // confimration of intent to delete
+            const confirmed = window.confirm('Are you sure you want to delete this project?');
+
+            if(confirmed) {
+                projectList.splice(projectIndex, 1);
+                renderProjects(projectList);
+            }
+        });
         
         // Loop through the project's tasks array and render all of the tasks
         project.taskList.forEach((task, taskIndex) => {
@@ -153,6 +172,8 @@ function renderProjects (projectList) {
         newTaskButton.classList.add('task-button');
         projectDiv.append(newTaskButton);
 
+
+        // Project level event listeners
         newTaskButton.addEventListener('click', () => {
             //Unhide the form
             const newTaskForm = document.getElementById('new-task-form-container');
@@ -162,10 +183,93 @@ function renderProjects (projectList) {
             const form = document.getElementById('new-task-form');
             form.elements['projectId'].value = projectIndex;
         });
-    
-        projectsContainer.append(projectDiv);
+
+        const newProjectButton = document.createElement('button');
+        newProjectButton.innerText = 'New Project';
+        newProjectButton.classList.add('new-project-button')
+
+        newProjectButton.addEventListener('click', ()=> {
+            const newProjectDialog = document.getElementById('custom-dialog');
+            newProjectDialog.style.display = 'block';
+            document.getElementById('modal-background').style.display = 'block';
+        });
+
+        projectsContainer.append(projectDiv, newProjectButton);
     });
 
 }
 
-export { renderProjects };
+function renderModals() {
+
+// Render the new project addition modal
+
+// Create the modal background div
+const modalBackground = document.createElement('div');
+modalBackground.id = 'modal-background';
+modalBackground.classList.add('modal');
+
+// Create the custom dialog div
+const customDialog = document.createElement('div');
+customDialog.id = 'custom-dialog';
+customDialog.classList.add('dialog');
+
+// Create the image element
+const closeModalButton = document.createElement('img');
+closeModalButton.src = xIcon;
+closeModalButton.classList.add('close-modal-button');
+
+// Create the heading element
+const heading = document.createElement('h3');
+heading.textContent = 'Add New Project';
+
+// Create the input element for Item 1
+const input1 = document.createElement('input');
+input1.type = 'text';
+input1.id = 'input1';
+input1.placeholder = 'Item 1';
+
+// Create the textarea element for Item 2
+const input2 = document.createElement('textarea');
+input2.id = 'input2';
+input2.placeholder = 'Item 2';
+
+// Create the button element
+const submitButton = document.createElement('button');
+submitButton.id = 'submitButton';
+submitButton.textContent = 'Submit';
+
+// Append the elements to the dialog
+customDialog.appendChild(closeModalButton);
+customDialog.appendChild(heading);
+customDialog.appendChild(input1);
+customDialog.appendChild(input2);
+customDialog.appendChild(submitButton);
+
+// Append the dialog to the modal background
+modalBackground.appendChild(customDialog);
+
+// Append the modal background to the document body
+document.body.appendChild(modalBackground);
+
+// Event listener for closing the modal by clicking outside of the modal
+modalBackground.addEventListener('click', (event)=> {
+    if (event.target == modalBackground) {
+        modalBackground.style.display = 'none';
+    }
+});
+
+// Event listener for the X / Close button
+closeModalButton.addEventListener('click', ()=> {
+    modalBackground.style.display = 'none';
+});
+
+// Event listener for escape key to close the modal
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Escape') {
+        modalBackground.style.display = 'none';
+    }
+});
+
+}
+
+export { renderProjects, renderModals };
