@@ -3,6 +3,7 @@ import shrinkIcon from './assets/shrink.svg';
 import trashIcon from './assets/trash.svg';
 import calendarIcon from './assets/calendar.svg';
 import editIcon from './assets/edit.svg';
+import newIcon from './assets/plus-circle.svg';
 
 function renderProjects (projectList) {
 
@@ -10,7 +11,7 @@ function renderProjects (projectList) {
 
     projectsContainer.innerHTML = '';
 
-    projectList.forEach((project) => {
+    projectList.forEach((project, projectIndex) => {
         const projectDiv = document.createElement('div');
         const projectTitleContainer = document.createElement('div');
         const projectTitle = document.createElement('h3');
@@ -25,7 +26,7 @@ function renderProjects (projectList) {
         projectDiv.append(projectTitleContainer);
         
         // Loop through the project's tasks array and render all of the tasks
-        project.taskList.forEach((task) => {
+        project.taskList.forEach((task, taskIndex) => {
 
             const taskOuter = document.createElement('div');
             taskOuter.classList.add('task-outer');
@@ -117,6 +118,39 @@ function renderProjects (projectList) {
                 renderProjects(projectList);
             });
 
+            editButton.addEventListener('click', () => {
+                //Unhide the form
+                const newTaskForm = document.getElementById('new-task-form-container');
+                newTaskForm.style.display = 'block';
+
+                //Pass index of current project, index of current task, and existing task data to be pre-filled
+                const form = document.getElementById('new-task-form');
+                form.elements['projectId'].value = projectIndex;
+                form.elements['taskId'].value = taskIndex;
+                form.elements['title'].value = task.title;
+                form.elements['description'].value = task.desc;
+                form.elements['due-date'].value = task.dueDate;
+                if (task.highPriority) {
+                    form.elements['priority'].checked = true;
+                } else form.elements['priority'].checked = false;
+            });
+
+        });
+
+        // Render New Task button and apply it below the tasks, make sure it points to this specific project for adding tasks
+        const newTaskButton = document.createElement('img');
+        newTaskButton.src = newIcon;
+        newTaskButton.classList.add('task-button');
+        projectDiv.append(newTaskButton);
+
+        newTaskButton.addEventListener('click', () => {
+            //Unhide the form
+            const newTaskForm = document.getElementById('new-task-form-container');
+            newTaskForm.style.display = 'block';
+
+            // Pass the index of the current project to the hidden form input so that the task will be added to the correct project
+            const form = document.getElementById('new-task-form');
+            form.elements['projectId'].value = projectIndex;
         });
     
         projectsContainer.append(projectDiv);
