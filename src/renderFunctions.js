@@ -209,6 +209,7 @@ function renderProjects () {
                 //Unhide the form
                 const newTaskForm = document.getElementById('new-task-form-container');
                 newTaskForm.style.display = 'block';
+                document.getElementById('modal-background').style.display = 'block';
 
                 // Pass the index of the current project to the hidden form input so that the task will be added to the correct project
                 const form = document.getElementById('new-task-form');
@@ -306,18 +307,21 @@ document.body.appendChild(modalBackground);
 modalBackground.addEventListener('click', (event)=> {
     if (event.target == modalBackground) {
         modalBackground.style.display = 'none';
+        customDialog.style.display = 'none';
     }
 });
 
 // Event listener for the X / Close button
 closeModalButton.addEventListener('click', ()=> {
     modalBackground.style.display = 'none';
+    customDialog.style.display = 'none';
 });
 
 // Event listener for escape key to close the modal
 document.addEventListener('keydown', (event) => {
     if(event.key === 'Escape') {
         modalBackground.style.display = 'none';
+        customDialog.style.display = 'none';
     }
 });
 
