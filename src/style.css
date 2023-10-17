@@ -195,6 +195,10 @@ body {
   background-color: rgba(0,0,0,0.4); /* Black with opacity */
 } 
 
+.task-form-header {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* Apply styles to the new task form container */
 .task-form-container {

@@ -170,6 +170,7 @@ function renderProjects () {
                     //Unhide the form
                     const newTaskForm = document.getElementById('new-task-form-container');
                     newTaskForm.style.display = 'block';
+                    document.getElementById('modal-background').style.display = 'block';
 
                     //Pass index of current project, index of current task, and existing task data to be pre-filled
                     const form = document.getElementById('new-task-form');
@@ -247,7 +248,7 @@ modalBackground.classList.add('modal');
 // Create the custom dialog div
 const customDialog = document.createElement('div');
 customDialog.id = 'custom-dialog';
-customDialog.classList.add('dialog');
+customDialog.classList.add('task-form-container');
 
 // Create the image element
 const closeModalButton = document.createElement('img');
@@ -303,26 +304,10 @@ modalBackground.appendChild(customDialog);
 // Append the modal background to the document body
 document.body.appendChild(modalBackground);
 
-// Event listener for closing the modal by clicking outside of the modal
-modalBackground.addEventListener('click', (event)=> {
-    if (event.target == modalBackground) {
-        modalBackground.style.display = 'none';
-        customDialog.style.display = 'none';
-    }
-});
-
-// Event listener for the X / Close button
+// Event listener for the X / Close button for New Projects
 closeModalButton.addEventListener('click', ()=> {
     modalBackground.style.display = 'none';
     customDialog.style.display = 'none';
-});
-
-// Event listener for escape key to close the modal
-document.addEventListener('keydown', (event) => {
-    if(event.key === 'Escape') {
-        modalBackground.style.display = 'none';
-        customDialog.style.display = 'none';
-    }
 });
 
 submitButton.addEventListener('click', (event)=> {
@@ -340,7 +325,116 @@ submitButton.addEventListener('click', (event)=> {
 
 });
 
-const newTaskForm = document.getElementById('new-task-form');
+// RENDER NEW TASK FORM
+
+// Create the new task form container
+const newTaskFormContainer = document.createElement('div');
+newTaskFormContainer.id = 'new-task-form-container';
+newTaskFormContainer.classList.add('task-form-container');
+newTaskFormContainer.style.display = 'none';
+
+// Create the task form header
+const taskFormHeader = document.createElement('div');
+taskFormHeader.classList.add('task-form-header');
+
+// Create the newTaskHeader
+const newTaskHeader = document.createElement('h3');
+newTaskHeader.textContent = 'Add/Edit Task';
+
+// Create the close button
+const closeTaskModalButton = document.createElement('img');
+closeTaskModalButton.src = xIcon;
+closeTaskModalButton.classList.add('close-modal-button');
+
+// Append the newTaskHeader and close button to the task form header
+taskFormHeader.appendChild(newTaskHeader);
+taskFormHeader.appendChild(closeTaskModalButton);
+
+// Create the form
+const newTaskForm = document.createElement('form');
+newTaskForm.id = 'new-task-form';
+
+// Create the label and input for Title
+const taskTitleLabel = document.createElement('label');
+taskTitleLabel.setAttribute('for', 'title');
+taskTitleLabel.textContent = 'Title:';
+const taskTitleInput = document.createElement('input');
+taskTitleInput.type = 'text';
+taskTitleInput.id = 'title';
+taskTitleInput.name = 'title';
+taskTitleInput.required = true;
+
+// Create the label and textarea for Description
+const taskDescLabel = document.createElement('label');
+taskDescLabel.setAttribute('for', 'description');
+taskDescLabel.textContent = 'Description:';
+const taskDescTextArea = document.createElement('textarea');
+taskDescTextArea.id = 'description';
+taskDescTextArea.name = 'description';
+
+// Create the label and input for Due Date
+const dueDateLabel = document.createElement('label');
+dueDateLabel.setAttribute('for', 'due-date');
+dueDateLabel.textContent = 'Due Date:';
+const dueDateInput = document.createElement('input');
+dueDateInput.type = 'date';
+dueDateInput.id = 'due-date';
+dueDateInput.name = 'due-date';
+dueDateInput.required = true;
+
+// Create the label and checkbox for High Priority
+const priorityLabel = document.createElement('label');
+const priorityCheckbox = document.createElement('input');
+priorityCheckbox.type = 'checkbox';
+priorityCheckbox.id = 'high-priority';
+priorityCheckbox.name = 'priority';
+priorityCheckbox.value = 'high';
+const priorityText = document.createTextNode('High Priority?');
+const projectIdInput = document.createElement('input');
+projectIdInput.type = 'hidden';
+projectIdInput.name = 'projectId';
+projectIdInput.value = '123';
+const taskIdInput = document.createElement('input');
+taskIdInput.type = 'hidden';
+taskIdInput.name = 'taskId';
+taskIdInput.value = '-1';
+
+// Create the button
+const taskSubmitButton = document.createElement('button');
+taskSubmitButton.type = 'submit';
+taskSubmitButton.textContent = 'Add Task';
+
+// Append the elements to the form
+newTaskForm.appendChild(taskTitleLabel);
+newTaskForm.appendChild(taskTitleInput);
+newTaskForm.appendChild(taskDescLabel);
+newTaskForm.appendChild(taskDescTextArea);
+newTaskForm.appendChild(dueDateLabel);
+newTaskForm.appendChild(dueDateInput);
+priorityLabel.appendChild(priorityCheckbox);
+priorityLabel.appendChild(priorityText);
+newTaskForm.appendChild(priorityLabel);
+newTaskForm.appendChild(projectIdInput);
+newTaskForm.appendChild(taskIdInput);
+newTaskForm.appendChild(taskSubmitButton);
+
+// Append the header and form to the container
+newTaskFormContainer.appendChild(taskFormHeader);
+newTaskFormContainer.appendChild(newTaskForm);
+
+// Append the new task form container to the document body
+//document.body.appendChild(newTaskFormContainer);
+modalBackground.appendChild(newTaskFormContainer);
+
+// Event listener for the X / Close button for New Projects
+closeTaskModalButton.addEventListener('click', ()=> {
+    modalBackground.style.display = 'none';
+    newTaskFormContainer.style.display = 'none';
+    newTaskForm.reset();
+});
+
+// Event listener for submitting new task or edit task
+
 newTaskForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const projectIndex = newTaskForm.elements['projectId'].value;
@@ -363,11 +457,31 @@ newTaskForm.addEventListener('submit', (event) => {
     newTaskForm.reset();
     newTaskForm.elements['projectId'].value = '123';
     newTaskForm.elements['taskId'].value = '-1';
-    const newTaskDiv = document.getElementById('new-task-form-container');
-    newTaskDiv.style.display = 'none';
+    newTaskFormContainer.style.display = 'none';
+    modalBackground.style.display ='none';
 
     localStorage.setItem('projectList', JSON.stringify(projectList));
     renderProjects();
+});
+
+// Event listener for closing the modal by clicking outside of the modal
+modalBackground.addEventListener('click', (event)=> {
+    if (event.target == modalBackground) {
+        modalBackground.style.display = 'none';
+        customDialog.style.display = 'none';
+        newTaskFormContainer.style.display = 'none';
+        newTaskForm.reset();
+    }
+});
+
+// Event listener for escape key to close the modal
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Escape') {
+        modalBackground.style.display = 'none';
+        customDialog.style.display = 'none';
+        newTaskFormContainer.style.display = 'none';
+        newTaskForm.reset();
+    }
 });
 
 }
