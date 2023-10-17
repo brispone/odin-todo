@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Open Sans', sans-serif;
   }
@@ -51,6 +52,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 10px;
   }
 
   .new-project-button {
@@ -77,7 +79,7 @@ body {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -109,6 +111,9 @@ body {
 
 .close-modal-button {
   cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .expand-task-button.active + .task-details {
@@ -151,6 +156,7 @@ body {
   transform: translate(-50%, -50%);
   background: #fff;
   border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 20px;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -167,7 +173,13 @@ body {
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dialog button:hover {
+  background: #17b991;
 }
 
 .modal {
@@ -180,5 +192,67 @@ body {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4); /* Black with opacity */
+} 
+
+
+/* Apply styles to the new task form container */
+.task-form-container {
+  display: none;
+  position: fixed;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the form inputs and labels */
+.task-form-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.task-form-container input[type="text"],
+.task-form-container input[type="date"],
+.task-form-container textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the checkbox label and checkbox input */
+.task-form-container label[for="high-priority"] {
+  display: flex;
+  align-items: center;
+  color: slategray;
+  font-size: 0.8em;
+}
+
+.task-form-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Style the submit button */
+.task-form-container button[type="submit"] {
+  display: block;
+  background: #1dd1a1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.task-form-container button[type="submit"]:hover {
+  background: #17b991;
 }
