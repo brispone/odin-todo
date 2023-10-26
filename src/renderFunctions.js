@@ -318,7 +318,7 @@ submitButton.addEventListener('click', (event)=> {
     modalBackground.style.display = 'none';
 
     const newProject = createProject(newProjectTitle, newProjectDesc);
-    const projectList = JSON.parse(localStorage.getItem('projectList'));
+    const projectList = JSON.parse(localStorage.getItem('projectList')) || [];
     projectList.push(newProject);
     localStorage.setItem('projectList', JSON.stringify(projectList));
     renderProjects();
