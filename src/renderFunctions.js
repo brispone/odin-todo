@@ -443,7 +443,7 @@ newTaskForm.addEventListener('submit', (event) => {
     const taskDesc = newTaskForm.elements['description'].value;
     const taskDueDate = new Date(newTaskForm.elements['due-date'].value);
     const taskHighPriority = newTaskForm.elements['priority'].checked;
-    const projectList = JSON.parse(localStorage.getItem('projectList'));
+    const projectList = JSON.parse(localStorage.getItem('projectList')) || [];
 
     const newTask = createTask(taskTitle, taskDesc, taskDueDate, taskHighPriority);
 
