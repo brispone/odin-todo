@@ -10,7 +10,7 @@ import { createTask } from './taskFactory';
 
 function renderProjects () {
 
-    const projectList = JSON.parse(localStorage.getItem('projectList'));
+    const projectList = JSON.parse(localStorage.getItem('projectList')) || [];
 
     const projectsContainer = document.getElementById("projects");
 
